@@ -1,119 +1,52 @@
-Flask: Web framework to create routes and serve pages.
+# Air Draw – Scientific Mode
 
-cv2 (OpenCV): To capture webcam feed and manipulate images.
+**Air Draw – Scientific Mode** is an interactive Python Flask application that enables real-time hand-tracking-based drawing using your webcam. Leveraging **MediaPipe Hands** and **OpenCV**, it allows users to draw, erase, and select colors with simple hand gestures, providing a touch-free creative experience. The application includes a **scientific panel** that displays real-time metrics such as speed, acceleration, angular velocity, and distance traveled, and it plots these parameters on dynamic graphs alongside a mini coordinate system. Users can switch cameras on-the-fly and save their drawings as images. This repository also includes sample screenshots and a test video demonstrating the functionality of the app. Air Draw is designed for educational, experimental, and interactive purposes, making it ideal for exploring gesture recognition, computer vision, and scientific visualization in Python.
 
-mediapipe: Hand tracking library.
+---
 
-numpy: Array operations.
+## Installation
 
-math: For speed, distance, and angular velocity calculations.
+1. **Clone the repository**
+```bash
+git clone https://github.com/umaier-695/AirDraw.git
+cd AirDraw
+Create and activate a virtual environment (optional but recommended)
 
-deque: Efficient fixed-length queues to store movement history.
+bash
+Copy code
+python3 -m venv .venv
+source .venv/bin/activate   # Mac/Linux
+.venv\Scripts\activate      # Windows
+Install required Python packages
 
-Tracks 1 hand with high detection/tracking confidence.
+bash
+Copy code
+pip install -r requirements.txt
+If requirements.txt is not present, install manually:
 
-mp_draw is used to draw landmarks and connections on the hand.
+bash
+Copy code
+pip install flask opencv-python mediapipe numpy
+Usage
 
-Starts webcam capture (default camera = 0).
+Run the Flask application
 
-Later, you can switch camera using the Flask form.
+python Air_draw.py
 
-canvas stores the drawing separately from webcam feed.
 
-prev_x, prev_y track last finger position.
+Open your web browser and go to:
 
-mode switches between Draw and Erase.
+http://127.0.0.1:5000/
 
-latest_frame stores the current frame for saving.
 
-Tracks trajectory, speed, acceleration, angular velocity, distance.
+Features
 
-deque ensures only the latest N points are stored.
+Draw or erase using hand gestures
 
-Returns list of fingers up (1) or down (0).
+Select colors using gestures: red, green, blue, black
 
-Thumb uses x-axis, others use y-axis.
+Switch between multiple cameras
 
-7. Video Frame Generation (generate_frames)
+View real-time scientific metrics: speed, acceleration, angular velocity, distance
 
-This is the heart of the app:
-
-Capture frame & flip (mirror view).
-
-Convert BGR → RGB for MediaPipe processing.
-
-Detect hand landmarks.
-
-Finger gestures:
-
-Two fingers (index + middle): Red
-
-Index + ring: Green
-
-Index + pinky: Blue
-
-Middle + ring: Black
-
-No fingers: Erase
-
-Draw / Erase based on finger positions.
-
-Scientific calculations:
-
-Speed = distance moved per frame.
-
-Acceleration = change in speed.
-
-Distance traveled.
-
-Angular velocity = change in angle of movement.
-
-Blend canvas with live webcam feed.
-
-Add toolbar for color selection and mode display.
-
-Add scientific panel with graphs.
-
-Return frame as JPEG bytes for Flask streaming.
-
-Open browser at http://localhost:5000.
-
-Draw gestures:
-
-Index finger alone → draw.
-
-No fingers → erase.
-
-Finger combinations → select color.
-
-View scientific panel:
-
-Speed, acceleration, angular velocity, distance.
-
-Mini XY trajectory plot.
-
-Switch cameras from dropdown if multiple cameras are available.
-
-Save drawing by clicking the “Save Drawing” button.
-
- Key Features
-
-Real-time hand-tracking drawing.
-
-Gesture-based color selection (red, green, blue, black).
-
-Eraser mode via closed fist.
-
-Scientific panel with:
-
-X/Y coordinates.
-
-Speed, acceleration, angular velocity.
-
-Distance traveled.
-
-Graphs and mini trajectory plot.
-
-Save drawing directly as PNG.
-
-Switch between multiple cameras without restarting.
+Save drawings as PNG images
